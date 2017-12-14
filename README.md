@@ -1,6 +1,6 @@
-# Curso: AngularJs Fundamentals 
+# Curso: CONSTRUINDO FRONT-END RICOS COM ANGULARJS by Balta.io
 
-Curso de AngularJs do PluralSight (exercícios e exemplos desenvolvidos durante o curso)
+Curso de AngularJs do Balta.io (exercícios e exemplos desenvolvidos durante o curso)
 
 ## Recursos Utilizados durante o desenvolvimento:
 
