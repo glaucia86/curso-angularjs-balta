@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Angular Fundamentals - Aula 01</title>
+    <title>AngularJs - Aula 02</title>
 </head>
 <body>
-    <h1 ng-controller="OlaMundoCtrl">{{olaMundoMensagem}}</h1>
     <script src="../bower_components/angular/angular.min.js"></script>
     
-    <script type="text/javascript">
-        angular.module('app', []).controller('OlaMundoCtrl', function($scope) {
-            $scope.olaMundoMensagem = "Olá Mundo!!!!";
-        })   
+    <script>
+        //Aqui estamos criando um módulo
+        angular.module('app', []); 
     </script>
 </body>
 </html>
