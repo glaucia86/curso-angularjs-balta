@@ -7,11 +7,24 @@
     <title>AngularJs - Aula 02</title>
 </head>
 <body>
+    <h1 ng-controller="titleCtrl">{{title}}</h1>
+
     <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-route/angular-route.min.js"></script>
     
     <script>
-        //Aqui estamos criando um módulo
-        angular.module('app', []); 
+
+        //Aqui estamos criando um módulo:
+        angular.module('app', ['ngRoute', 'app.Controllers']); 
+        angular.module('app.Controllers', []);
+        angular.module('app.Admin', []);  
+
+        //Obtendo o módulo:
+        var modulo = angular.module('app.Controllers');
+        modulo.controller('titleCtrl', function($scope) {
+            $scope.title = "Seja Bem-Vindo!!"
+        });
+        
     </script>
 </body>
 </html>
