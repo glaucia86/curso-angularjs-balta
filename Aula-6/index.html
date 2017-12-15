@@ -11,6 +11,7 @@
 <body>
 
     <div ng-controller="HomeController" class="container">
+        <h3>Sua lista tem {{products.length}} itens</h3>
         <input type="text" ng-model="filtro">
         <select ng-model="ordem">
             <option value="title">Título</option>
@@ -19,6 +20,9 @@
         <ul>
             <li ng-repeat="prd in products | filter: filtro | orderBy: ordem">
                 {{prd.title}} - {{prd.category}}
+                <br>
+                <button class="btn btn-danger" aria-label="Left Align" ng-click="remover()">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>&nbsp Excluir</button>
             </li>
         </ul>
 
@@ -61,10 +65,25 @@
                 { title: "Telefone", category: "Tesouraria" }
             ];
 
-            //Método responsável por Adicionar um novo Produto & Categoria:
+            
             $scope.adicionar = function() {
-                $scope.products.push($scope.product);
+                Adicionar();
             };
+
+            $scope.remover = function () {
+                Remover();
+            };
+
+            //Método responsável por Adicionar um novo Produto & Categoria:
+            function Adicionar() {
+                $scope.products.push($scope.product);
+            }
+
+            //Método responsável por Remover um Produto & Categoria:
+            function Remover(prd) {
+                var index = $scope.products.indexOf(prd);
+                $scope.products.splice(index, 1);
+            }
 
             console.log($scope.products);
         });
