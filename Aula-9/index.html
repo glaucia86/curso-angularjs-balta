@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AngularJs - Aula 09</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="../bower_components/toastr/toastr.min.css">
+    <style>
+        .todo-true{
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+
+    <div ng-controller="HomeController" class="container">
+        <div class="alert alert-success" ng-show="remaining() == 0">
+            <strong>Parabéns</strong>, você conclui todas as tarefas com sucesso!
+        </div>
+        <div class="alert alert-warning" 
+                ng-hide="remaining() == 0"
+                ng-show="remaining() > 0 && remaining() < todos.length">
+            <strong>Alerta</strong>, você não concluiu todas as tarefas!
+        </div>
+        <div class="alert alert-danger" ng-show="remaining() == todos.length">
+            <strong>Atenção</strong>, você precisa concluir todas as tarefas!
+        </div>
+        <h3 class="text-center">{{ remaining() }} tarefa(s) restante(s).</h3>
+        <ul>
+            <li ng-repeat="todo in todos"> 
+                <span class="todo-{{todo.done}}">{{todo.text}}</span> 
+                -
+                <input type="checkbox" ng-model="todo.done">
+                -
+                <span class="label" ng-class="{'label-success': todo.done, 'label-danger': !todo.done}">
+                    {{todo.text}}
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/toastr/toastr.min.js"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    
+    <script>
+
+        //Aqui estamos criando um módulo:
+        angular.module('app', []); 
+        var app = angular.module('app');
+
+        app.controller('HomeController', function($scope) {
+            $scope.todos = [
+                { text: 'Tarefa 1', done: true },
+                { text: 'Tarefa 2', done: false },
+                { text: 'Tarefa 3', done: false },
+                { text: 'Tarefa 4', done: true }
+            ];
+
+            $scope.remaining = function() {
+                var count = 0;
+
+                angular.forEach($scope.todos, function(item) {
+                    count += item.done ? 0 : 1;
+                });
+
+                return count;
+            }
+        });
+    </script>
+</body>
+</html>
