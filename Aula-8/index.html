@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AngularJs - Aula 08</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="../bower_components/toastr/toastr.min.css">
+</head>
+<body>
+
+    <div ng-controller="HomeController" class="container">
+        <h1>Você tem {{ restantes() }} tarefa(s) pendente(s).</h1>   
+
+        <ul>
+            <li ng-repeat="todo in todos"> 
+                {{ todo.text }} - 
+
+                <input type="checkbox" ng-model="todo.done">
+            </li>
+        </ul>
+    </div>
+
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/toastr/toastr.min.js"></script>
+    <script src="../bower_components/angular/angular.min.js"></script>
+    
+    <script>
+
+        //Aqui estamos criando um módulo:
+        angular.module('app', []); 
+        var app = angular.module('app');
+
+        app.controller('HomeController', function($scope) {
+            $scope.todos = [
+                { text: 'Tarefa 1', done: true },
+                { text: 'Tarefa 2', done: false },
+                { text: 'Tarefa 3', done: false },
+                { text: 'Tarefa 4', done: true }
+            ];
+
+            $scope.restantes = function() {
+                var count = 0;
+
+                angular.forEach($scope.todos, function(item) {
+                    count += item.done ? 0 : 1;
+                });
+
+                return count;
+            }
+        });
+    </script>
+</body>
+</html>
