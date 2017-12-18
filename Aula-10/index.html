@@ -37,8 +37,7 @@
                     <td class="text-center">{{ todo.done }}</td>
                     <td class="text-center"><input type="checkbox" ng-model="todo.done"></td>
                     <td>
-                        <button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-                        
+                        <button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash" ng-click="delete(todo);"></span></button>                      
                     </td>
                 </tr>
             </tbody>
@@ -50,6 +49,9 @@
                 </tr>
             </tfoot>
         </table>
+
+        <input type="text" ng-model="todo.text">
+        <button class="btn btn-sm btn-primary" ng-click="add();"><span class="glyphicon glyphicon-plus"></span></button>
     </div>
 
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
@@ -64,6 +66,7 @@
 
         app.controller('TodoController', function($scope) {
             $scope.order = 'text';
+            $scope.todo = { id: 0, text: '', done: true }
             $scope.todos = [
                 { id: 1, text: 'Tarefa 1', done: true },
                 { id: 2, text: 'Tarefa 2', done: false },
@@ -71,9 +74,19 @@
                 { id: 4, text: 'Tarefa 4', done: true }
             ];
 
+            $scope.delete = function(todo) {
+                var item = $scope.todos.indexOf(todo);
+                $scope.todos.splice(item, 1);
+            };
+
+            $scope.add = function(todo) {
+                $scope.todo.id = scope.todos.length + 1;
+                $scope.todos.push(todo);
+            };
+
             $scope.ordenar = function(ordenacao) {
                 $scope.order = ordenacao;
-            }
+            };
 
             $scope.remaining = function () {
                 var count = 0;
