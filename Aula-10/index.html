@@ -6,12 +6,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>AngularJs - TODO LIST</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootswatch.com/3/paper/bootstrap.min.css">
     <link rel="stylesheet" href="../bower_components/toastr/toastr.min.css">
 </head>
 <body>
+<div ng-include="'header.html'"></div>
 
-    <div ng-controller="HomeController" class="container">
+    <div ng-controller="TodoController" class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center"><a href="#" ng-click="ordenar('text')"> Tarefas</a></th>
+                    <th class="text-center"><a href="#" ng-click="ordenar('done')"> Status</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4">
+                        <input type="text" 
+                        class="form-control" 
+                        placeholder="Filtrar Tarefa" 
+                        ng-model="filter">
+                    </td>
+                </tr>
+                <tr ng-repeat="todo in todos | filter: filter | orderBy: order"> 
+                    <th class="text-center">{{ todo.id }}</th>
+                    <th class="text-center">{{ todo.text }}</th>
+                    <th class="text-center">{{ todo.done }}</th>
+                    <th class="text-center"><input type="checkbox" ng-model="todo.done"></th>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
@@ -24,8 +50,18 @@
         angular.module('app', []); 
         var app = angular.module('app');
 
-        app.controller('HomeController', function($scope) {
+        app.controller('TodoController', function($scope) {
+            $scope.order = 'text';
+            $scope.todos = [
+                { id: 1, text: 'Tarefa 1', done: true },
+                { id: 2, text: 'Tarefa 2', done: false },
+                { id: 3, text: 'Tarefa 3', done: false },
+                { id: 4, text: 'Tarefa 4', done: true }
+            ];
 
+            $scope.ordenar = function(ordenacao) {
+                $scope.order = ordenacao;
+            }
         });
     </script>
 </body>
