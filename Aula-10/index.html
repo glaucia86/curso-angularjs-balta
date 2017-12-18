@@ -7,6 +7,7 @@
     <title>AngularJs - TODO LIST</title>
 
     <link rel="stylesheet" href="https://bootswatch.com/3/paper/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
     <link rel="stylesheet" href="../bower_components/toastr/toastr.min.css">
 </head>
 <body>
@@ -23,7 +24,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="4">
+                    <td colspan="5">
                         <input type="text" 
                         class="form-control" 
                         placeholder="Filtrar Tarefa" 
@@ -31,12 +32,23 @@
                     </td>
                 </tr>
                 <tr ng-repeat="todo in todos | filter: filter | orderBy: order"> 
-                    <th class="text-center">{{ todo.id }}</th>
-                    <th class="text-center">{{ todo.text }}</th>
-                    <th class="text-center">{{ todo.done }}</th>
-                    <th class="text-center"><input type="checkbox" ng-model="todo.done"></th>
+                    <td class="text-center">{{ todo.id }}</td>
+                    <td class="text-center">{{ todo.text }}</td>
+                    <td class="text-center">{{ todo.done }}</td>
+                    <td class="text-center"><input type="checkbox" ng-model="todo.done"></td>
+                    <td>
+                        <button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                        
+                    </td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">
+                        <strong>{{ remaining() }} tarefa(s) restante(s).</strong>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 
@@ -61,6 +73,16 @@
 
             $scope.ordenar = function(ordenacao) {
                 $scope.order = ordenacao;
+            }
+
+            $scope.remaining = function () {
+                var count = 0;
+
+                angular.forEach($scope.todos, function (item) {
+                    count += item.done ? 0 : 1;
+                });
+
+                return count;
             }
         });
     </script>
